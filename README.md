@@ -34,15 +34,358 @@ console.log(openapiSpecificationWithTypes);
 
 ## API
 
-### addSchemaTypesFromExamples(openapiSpecification: string, format: 'json' | 'yaml' = 'json'): string <sup>default import</sup>
+### addSchemaTypesFromExamples(openapi: string, format: 'json' | 'yaml' = 'json'): string
 
 Adds the missing schema types to the openapi specification. The schema types will be generated for each request and response based on the examples in the specification.
 
 ## Example
 
-|Original schema|Schema with types|
-|---|---|
-|<code>openapi: 3.0.0<br>info:<br>&ensp;title: Sample<br>&ensp;version: 1.0.0<br>servers:<br>&ensp;- url: http://{{base_url}}<br>paths:<br>&ensp;/api/profile:<br>&ensp;&ensp;get:<br>&ensp;&ensp;&ensp;tags:<br>&ensp;&ensp;&ensp;&ensp;- default<br>&ensp;&ensp;&ensp;summary: /api/profile<br>&ensp;&ensp;&ensp;responses:<br>&ensp;&ensp;&ensp;&ensp;'200':<br>&ensp;&ensp;&ensp;&ensp;&ensp;description: OK<br>&ensp;&ensp;&ensp;&ensp;&ensp;headers:<br>&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;Content-Type:<br>&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;schema:<br>&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;type: string<br>&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;example: application/json<br>&ensp;&ensp;&ensp;&ensp;&ensp;content:<br>&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;application/json:<br>&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;schema:<br>&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;$ref: '#/components/schemas/GET_apiprofile_response_200'<br>&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;example:<br>&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;firstName: Max<br>&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;lastName: Mustermann<br>&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;age: 54<br>&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;skills:<br>&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;- name: javascript<br>&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;level: 5<br>&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;address:<br>&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;street: Musterstreet<br>&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;zip: '12355'<br>&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;country: Germany<br>&ensp;&ensp;&ensp;&ensp;'404':<br>&ensp;&ensp;&ensp;&ensp;&ensp;description: Not Found<br>&ensp;&ensp;&ensp;&ensp;&ensp;headers:<br>&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;Content-Type:<br>&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;schema:<br>&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;type: string<br>&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;example: application/json<br>&ensp;&ensp;&ensp;&ensp;&ensp;content:<br>&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;application/json:<br>&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;schema:<br>&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;$ref: '#/components/schemas/GET_apiprofile_response_404'<br>&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;example:<br>&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;error:<br>&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;code: 404<br>&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;message: Not found<br>&ensp;&ensp;post:<br>&ensp;&ensp;&ensp;tags:<br>&ensp;&ensp;&ensp;&ensp;- default<br>&ensp;&ensp;&ensp;summary: /api/profile<br>&ensp;&ensp;&ensp;requestBody:<br>&ensp;&ensp;&ensp;&ensp;content:<br>&ensp;&ensp;&ensp;&ensp;&ensp;application/json:<br>&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;schema:<br>&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;type: object<br>&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;example:<br>&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;firstName: Max<br>&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;lastName: Mustermann<br>&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;age: 54<br>&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;skills:<br>&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;- name: javascript<br>&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;level: 5<br>&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;address:<br>&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;street: Musterstreet<br>&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;zip: '12355'<br>&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;country: Germany<br>&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;$ref: '#/components/schemas/POST_apiprofile'<br>&ensp;&ensp;&ensp;responses:<br>&ensp;&ensp;&ensp;&ensp;'200':<br>&ensp;&ensp;&ensp;&ensp;&ensp;description: OK<br>&ensp;&ensp;&ensp;&ensp;&ensp;headers:<br>&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;Content-Type:<br>&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;schema:<br>&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;type: string<br>&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;example: application/json<br>&ensp;&ensp;&ensp;&ensp;&ensp;content:<br>&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;application/json:<br>&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;schema:<br>&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;$ref: '#/components/schemas/POST_apiprofile_response_200'<br>&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;example:<br>&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;firstName: Max<br>&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;lastName: Mustermann<br>&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;age: 54<br>&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;skills:<br>&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;- name: javascript<br>&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;level: 5<br>&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;address:<br>&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;street: Musterstreet<br>&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;zip: '12355'<br>&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;country: Germany<br>&ensp;&ensp;&ensp;&ensp;'404':<br>&ensp;&ensp;&ensp;&ensp;&ensp;description: Not Found<br>&ensp;&ensp;&ensp;&ensp;&ensp;headers:<br>&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;Content-Type:<br>&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;schema:<br>&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;type: string<br>&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;example: application/json<br>&ensp;&ensp;&ensp;&ensp;&ensp;content:<br>&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;application/json:<br>&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;schema:<br>&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;$ref: '#/components/schemas/POST_apiprofile_response_404'<br>&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;example:<br>&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;error:<br>&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;code: 404<br>&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;message: Not found<br>components:<br>&ensp;schemas:<br>&ensp;&ensp;POST_apiprofile:<br>&ensp;&ensp;&ensp;type: object<br>&ensp;&ensp;&ensp;properties:<br>&ensp;&ensp;&ensp;&ensp;firstName:<br>&ensp;&ensp;&ensp;&ensp;&ensp;type: string<br>&ensp;&ensp;&ensp;&ensp;lastName:<br>&ensp;&ensp;&ensp;&ensp;&ensp;type: string<br>&ensp;&ensp;&ensp;&ensp;age:<br>&ensp;&ensp;&ensp;&ensp;&ensp;type: number<br>&ensp;&ensp;&ensp;&ensp;skills:<br>&ensp;&ensp;&ensp;&ensp;&ensp;type: array<br>&ensp;&ensp;&ensp;&ensp;&ensp;items:<br>&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;$ref: '#/components/schemas/POST_apiprofile_skills'<br>&ensp;&ensp;&ensp;&ensp;address:<br>&ensp;&ensp;&ensp;&ensp;&ensp;$ref: '#/components/schemas/POST_apiprofile_address'<br>&ensp;&ensp;GET_apiprofile_response_200:<br>&ensp;&ensp;&ensp;type: object<br>&ensp;&ensp;&ensp;properties:<br>&ensp;&ensp;&ensp;&ensp;firstName:<br>&ensp;&ensp;&ensp;&ensp;&ensp;type: string<br>&ensp;&ensp;&ensp;&ensp;lastName:<br>&ensp;&ensp;&ensp;&ensp;&ensp;type: string<br>&ensp;&ensp;&ensp;&ensp;age:<br>&ensp;&ensp;&ensp;&ensp;&ensp;type: number<br>&ensp;&ensp;&ensp;&ensp;skills:<br>&ensp;&ensp;&ensp;&ensp;&ensp;type: array<br>&ensp;&ensp;&ensp;&ensp;&ensp;items:<br>&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;$ref: '#/components/schemas/GET_apiprofile_response_200_skills'<br>&ensp;&ensp;&ensp;&ensp;address:<br>&ensp;&ensp;&ensp;&ensp;&ensp;$ref: '#/components/schemas/GET_apiprofile_response_200_address'<br>&ensp;&ensp;GET_apiprofile_response_404:<br>&ensp;&ensp;&ensp;type: object<br>&ensp;&ensp;&ensp;properties:<br>&ensp;&ensp;&ensp;&ensp;error:<br>&ensp;&ensp;&ensp;&ensp;&ensp;$ref: '#/components/schemas/GET_apiprofile_response_404_error'<br>&ensp;&ensp;POST_apiprofile_response_200:<br>&ensp;&ensp;&ensp;type: object<br>&ensp;&ensp;&ensp;properties:<br>&ensp;&ensp;&ensp;&ensp;firstName:<br>&ensp;&ensp;&ensp;&ensp;&ensp;type: string<br>&ensp;&ensp;&ensp;&ensp;lastName:<br>&ensp;&ensp;&ensp;&ensp;&ensp;type: string<br>&ensp;&ensp;&ensp;&ensp;age:<br>&ensp;&ensp;&ensp;&ensp;&ensp;type: number<br>&ensp;&ensp;&ensp;&ensp;skills:<br>&ensp;&ensp;&ensp;&ensp;&ensp;type: array<br>&ensp;&ensp;&ensp;&ensp;&ensp;items:<br>&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;$ref: '#/components/schemas/POST_apiprofile_response_200_skills'<br>&ensp;&ensp;&ensp;&ensp;address:<br>&ensp;&ensp;&ensp;&ensp;&ensp;$ref: '#/components/schemas/POST_apiprofile_response_200_address'<br>&ensp;&ensp;POST_apiprofile_response_404:<br>&ensp;&ensp;&ensp;type: object<br>&ensp;&ensp;&ensp;properties:<br>&ensp;&ensp;&ensp;&ensp;error:<br>&ensp;&ensp;&ensp;&ensp;&ensp;$ref: '#/components/schemas/POST_apiprofile_response_404_error'<br>&ensp;&ensp;POST_apiprofile_skills:<br>&ensp;&ensp;&ensp;type: object<br>&ensp;&ensp;&ensp;properties:<br>&ensp;&ensp;&ensp;&ensp;name:<br>&ensp;&ensp;&ensp;&ensp;&ensp;type: string<br>&ensp;&ensp;&ensp;&ensp;level:<br>&ensp;&ensp;&ensp;&ensp;&ensp;type: number<br>&ensp;&ensp;POST_apiprofile_address:<br>&ensp;&ensp;&ensp;type: object<br>&ensp;&ensp;&ensp;properties:<br>&ensp;&ensp;&ensp;&ensp;street:<br>&ensp;&ensp;&ensp;&ensp;&ensp;type: string<br>&ensp;&ensp;&ensp;&ensp;zip:<br>&ensp;&ensp;&ensp;&ensp;&ensp;type: string<br>&ensp;&ensp;&ensp;&ensp;country:<br>&ensp;&ensp;&ensp;&ensp;&ensp;type: string<br>&ensp;&ensp;GET_apiprofile_response_200_skills:<br>&ensp;&ensp;&ensp;type: object<br>&ensp;&ensp;&ensp;properties:<br>&ensp;&ensp;&ensp;&ensp;name:<br>&ensp;&ensp;&ensp;&ensp;&ensp;type: string<br>&ensp;&ensp;&ensp;&ensp;level:<br>&ensp;&ensp;&ensp;&ensp;&ensp;type: number<br>&ensp;&ensp;GET_apiprofile_response_200_address:<br>&ensp;&ensp;&ensp;type: object<br>&ensp;&ensp;&ensp;properties:<br>&ensp;&ensp;&ensp;&ensp;street:<br>&ensp;&ensp;&ensp;&ensp;&ensp;type: string<br>&ensp;&ensp;&ensp;&ensp;zip:<br>&ensp;&ensp;&ensp;&ensp;&ensp;type: string<br>&ensp;&ensp;&ensp;&ensp;country:<br>&ensp;&ensp;&ensp;&ensp;&ensp;type: string<br>&ensp;&ensp;GET_apiprofile_response_404_error:<br>&ensp;&ensp;&ensp;type: object<br>&ensp;&ensp;&ensp;properties:<br>&ensp;&ensp;&ensp;&ensp;code:<br>&ensp;&ensp;&ensp;&ensp;&ensp;type: number<br>&ensp;&ensp;&ensp;&ensp;message:<br>&ensp;&ensp;&ensp;&ensp;&ensp;type: string<br>&ensp;&ensp;POST_apiprofile_response_200_skills:<br>&ensp;&ensp;&ensp;type: object<br>&ensp;&ensp;&ensp;properties:<br>&ensp;&ensp;&ensp;&ensp;name:<br>&ensp;&ensp;&ensp;&ensp;&ensp;type: string<br>&ensp;&ensp;&ensp;&ensp;level:<br>&ensp;&ensp;&ensp;&ensp;&ensp;type: number<br>&ensp;&ensp;POST_apiprofile_response_200_address:<br>&ensp;&ensp;&ensp;type: object<br>&ensp;&ensp;&ensp;properties:<br>&ensp;&ensp;&ensp;&ensp;street:<br>&ensp;&ensp;&ensp;&ensp;&ensp;type: string<br>&ensp;&ensp;&ensp;&ensp;zip:<br>&ensp;&ensp;&ensp;&ensp;&ensp;type: string<br>&ensp;&ensp;&ensp;&ensp;country:<br>&ensp;&ensp;&ensp;&ensp;&ensp;type: string<br>&ensp;&ensp;POST_apiprofile_response_404_error:<br>&ensp;&ensp;&ensp;type: object<br>&ensp;&ensp;&ensp;properties:<br>&ensp;&ensp;&ensp;&ensp;code:<br>&ensp;&ensp;&ensp;&ensp;&ensp;type: number<br>&ensp;&ensp;&ensp;&ensp;message:<br>&ensp;&ensp;&ensp;&ensp;&ensp;type: string</code>|<code>openapi: 3.0.0<br>info:<br>&ensp;title: Sample<br>&ensp;version: 1.0.0<br>servers:<br>&ensp;- url: http://{{base_url}}<br>paths:<br>&ensp;/api/profile:<br>&ensp;&ensp;get:<br>&ensp;&ensp;&ensp;tags:<br>&ensp;&ensp;&ensp;&ensp;- default<br>&ensp;&ensp;&ensp;summary: /api/profile<br>&ensp;&ensp;&ensp;responses:<br>&ensp;&ensp;&ensp;&ensp;'200':<br>&ensp;&ensp;&ensp;&ensp;&ensp;description: OK<br>&ensp;&ensp;&ensp;&ensp;&ensp;headers:<br>&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;Content-Type:<br>&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;schema:<br>&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;type: string<br>&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;example: application/json<br>&ensp;&ensp;&ensp;&ensp;&ensp;content:<br>&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;application/json:<br>&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;schema:<br>&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;type: object<br>&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;example:<br>&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;firstName: Max<br>&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;lastName: Mustermann<br>&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;age: 54<br>&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;skills:<br>&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;- name: javascript<br>&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;level: 5<br>&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;address:<br>&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;street: Musterstreet<br>&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;zip: '12355'<br>&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;country: Germany<br>&ensp;&ensp;&ensp;&ensp;'404':<br>&ensp;&ensp;&ensp;&ensp;&ensp;description: Not Found<br>&ensp;&ensp;&ensp;&ensp;&ensp;headers:<br>&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;Content-Type:<br>&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;schema:<br>&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;type: string<br>&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;example: application/json<br>&ensp;&ensp;&ensp;&ensp;&ensp;content:<br>&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;application/json:<br>&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;schema:<br>&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;type: object<br>&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;example:<br>&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;error:<br>&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;code: 404<br>&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;message: Not found<br>&ensp;&ensp;post:<br>&ensp;&ensp;&ensp;tags:<br>&ensp;&ensp;&ensp;&ensp;- default<br>&ensp;&ensp;&ensp;summary: /api/profile<br>&ensp;&ensp;&ensp;requestBody:<br>&ensp;&ensp;&ensp;&ensp;content:<br>&ensp;&ensp;&ensp;&ensp;&ensp;application/json:<br>&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;schema:<br>&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;type: object<br>&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;example:<br>&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;firstName: Max<br>&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;lastName: Mustermann<br>&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;age: 54<br>&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;skills:<br>&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;- name: javascript<br>&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;level: 5<br>&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;address:<br>&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;street: Musterstreet<br>&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;zip: '12355'<br>&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;country: Germany<br>&ensp;&ensp;&ensp;responses:<br>&ensp;&ensp;&ensp;&ensp;'200':<br>&ensp;&ensp;&ensp;&ensp;&ensp;description: OK<br>&ensp;&ensp;&ensp;&ensp;&ensp;headers:<br>&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;Content-Type:<br>&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;schema:<br>&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;type: string<br>&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;example: application/json<br>&ensp;&ensp;&ensp;&ensp;&ensp;content:<br>&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;application/json:<br>&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;schema:<br>&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;type: object<br>&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;example:<br>&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;firstName: Max<br>&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;lastName: Mustermann<br>&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;age: 54<br>&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;skills:<br>&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;- name: javascript<br>&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;level: 5<br>&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;address:<br>&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;street: Musterstreet<br>&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;zip: '12355'<br>&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;country: Germany<br>&ensp;&ensp;&ensp;&ensp;'404':<br>&ensp;&ensp;&ensp;&ensp;&ensp;description: Not Found<br>&ensp;&ensp;&ensp;&ensp;&ensp;headers:<br>&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;Content-Type:<br>&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;schema:<br>&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;type: string<br>&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;example: application/json<br>&ensp;&ensp;&ensp;&ensp;&ensp;content:<br>&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;application/json:<br>&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;schema:<br>&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;type: object<br>&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;example:<br>&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;error:<br>&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;code: 404<br>&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;message: Not found<br></code>|
+### Original schema
+
+```yaml
+openapi: 3.0.0
+info:
+  title: Sample
+  version: 1.0.0
+servers:
+  - url: http://{{base_url}}
+paths:
+  /api/profile:
+    get:
+      tags:
+        - default
+      summary: /api/profile
+      responses:
+        '200':
+          description: OK
+          headers:
+            Content-Type:
+              schema:
+                type: string
+                example: application/json
+          content:
+            application/json:
+              schema:
+                type: object
+              example:
+                firstName: Max
+                lastName: Mustermann
+                age: 54
+                skills:
+                  - name: javascript
+                    level: 5
+                address:
+                  street: Musterstreet
+                  zip: '12355'
+                  country: Germany
+        '404':
+          description: Not Found
+          headers:
+            Content-Type:
+              schema:
+                type: string
+                example: application/json
+          content:
+            application/json:
+              schema:
+                type: object
+              example:
+                error:
+                  code: 404
+                  message: Not found
+    post:
+      tags:
+        - default
+      summary: /api/profile
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              example:
+                firstName: Max
+                lastName: Mustermann
+                age: 54
+                skills:
+                  - name: javascript
+                    level: 5
+                address:
+                  street: Musterstreet
+                  zip: '12355'
+                  country: Germany
+      responses:
+        '200':
+          description: OK
+          headers:
+            Content-Type:
+              schema:
+                type: string
+                example: application/json
+          content:
+            application/json:
+              schema:
+                type: object
+              example:
+                firstName: Max
+                lastName: Mustermann
+                age: 54
+                skills:
+                  - name: javascript
+                    level: 5
+                address:
+                  street: Musterstreet
+                  zip: '12355'
+                  country: Germany
+        '404':
+          description: Not Found
+          headers:
+            Content-Type:
+              schema:
+                type: string
+                example: application/json
+          content:
+            application/json:
+              schema:
+                type: object
+              example:
+                error:
+                  code: 404
+                  message: Not found
+
+```
+
+### New schema with types
+
+```yaml
+openapi: 3.0.0
+info:
+  title: Sample
+  version: 1.0.0
+servers:
+  - url: http://{{base_url}}
+paths:
+  /api/profile:
+    get:
+      tags:
+        - default
+      summary: /api/profile
+      responses:
+        '200':
+          description: OK
+          headers:
+            Content-Type:
+              schema:
+                type: string
+                example: application/json
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GET_apiprofile_response_200'
+              example:
+                firstName: Max
+                lastName: Mustermann
+                age: 54
+                skills:
+                  - name: javascript
+                    level: 5
+                address:
+                  street: Musterstreet
+                  zip: '12355'
+                  country: Germany
+        '404':
+          description: Not Found
+          headers:
+            Content-Type:
+              schema:
+                type: string
+                example: application/json
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GET_apiprofile_response_404'
+              example:
+                error:
+                  code: 404
+                  message: Not found
+    post:
+      tags:
+        - default
+      summary: /api/profile
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              example:
+                firstName: Max
+                lastName: Mustermann
+                age: 54
+                skills:
+                  - name: javascript
+                    level: 5
+                address:
+                  street: Musterstreet
+                  zip: '12355'
+                  country: Germany
+              $ref: '#/components/schemas/POST_apiprofile'
+      responses:
+        '200':
+          description: OK
+          headers:
+            Content-Type:
+              schema:
+                type: string
+                example: application/json
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/POST_apiprofile_response_200'
+              example:
+                firstName: Max
+                lastName: Mustermann
+                age: 54
+                skills:
+                  - name: javascript
+                    level: 5
+                address:
+                  street: Musterstreet
+                  zip: '12355'
+                  country: Germany
+        '404':
+          description: Not Found
+          headers:
+            Content-Type:
+              schema:
+                type: string
+                example: application/json
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/POST_apiprofile_response_404'
+              example:
+                error:
+                  code: 404
+                  message: Not found
+components:
+  schemas:
+    POST_apiprofile:
+      type: object
+      properties:
+        firstName:
+          type: string
+        lastName:
+          type: string
+        age:
+          type: number
+        skills:
+          type: array
+          items:
+            $ref: '#/components/schemas/POST_apiprofile_skills'
+        address:
+          $ref: '#/components/schemas/POST_apiprofile_address'
+    GET_apiprofile_response_200:
+      type: object
+      properties:
+        firstName:
+          type: string
+        lastName:
+          type: string
+        age:
+          type: number
+        skills:
+          type: array
+          items:
+            $ref: '#/components/schemas/GET_apiprofile_response_200_skills'
+        address:
+          $ref: '#/components/schemas/GET_apiprofile_response_200_address'
+    GET_apiprofile_response_404:
+      type: object
+      properties:
+        error:
+          $ref: '#/components/schemas/GET_apiprofile_response_404_error'
+    POST_apiprofile_response_200:
+      type: object
+      properties:
+        firstName:
+          type: string
+        lastName:
+          type: string
+        age:
+          type: number
+        skills:
+          type: array
+          items:
+            $ref: '#/components/schemas/POST_apiprofile_response_200_skills'
+        address:
+          $ref: '#/components/schemas/POST_apiprofile_response_200_address'
+    POST_apiprofile_response_404:
+      type: object
+      properties:
+        error:
+          $ref: '#/components/schemas/POST_apiprofile_response_404_error'
+    POST_apiprofile_skills:
+      type: object
+      properties:
+        name:
+          type: string
+        level:
+          type: number
+    POST_apiprofile_address:
+      type: object
+      properties:
+        street:
+          type: string
+        zip:
+          type: string
+        country:
+          type: string
+    GET_apiprofile_response_200_skills:
+      type: object
+      properties:
+        name:
+          type: string
+        level:
+          type: number
+    GET_apiprofile_response_200_address:
+      type: object
+      properties:
+        street:
+          type: string
+        zip:
+          type: string
+        country:
+          type: string
+    GET_apiprofile_response_404_error:
+      type: object
+      properties:
+        code:
+          type: number
+        message:
+          type: string
+    POST_apiprofile_response_200_skills:
+      type: object
+      properties:
+        name:
+          type: string
+        level:
+          type: number
+    POST_apiprofile_response_200_address:
+      type: object
+      properties:
+        street:
+          type: string
+        zip:
+          type: string
+        country:
+          type: string
+    POST_apiprofile_response_404_error:
+      type: object
+      properties:
+        code:
+          type: number
+        message:
+          type: string
+```
 
 ## Use with `postman-to-openapi`
 
