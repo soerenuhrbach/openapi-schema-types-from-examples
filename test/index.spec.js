@@ -39,18 +39,18 @@ for (const format in formats) {
     })
 
     it('should match the snapshot', () => {
-      let serializedDocument = null;
+      let serializedDocument = null
       switch (format) {
         case 'json':
-          serializedDocument = JSON.stringify(document);
-          break;
-        
-        case 'yaml':
-          serializedDocument = yaml.dump(document);
-          break;
-      } 
+          serializedDocument = JSON.stringify(document)
+          break
 
-      expect(serializedDocument).toMatchSnapshot();
+        case 'yaml':
+          serializedDocument = yaml.dump(document)
+          break
+      }
+
+      expect(serializedDocument).toMatchSnapshot()
     })
 
     it('should add schemas to the component scope', () => {
