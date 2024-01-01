@@ -14,13 +14,14 @@ for (const format in formats) {
 
     const createDocument = async () => {
       const serializedSchema = await fs.readFile(formats[format], { encoding: 'utf-8' })
+      const document = addSchemaTypesFromExamples(serializedSchema, format)
 
       switch (format) {
         case 'json':
-          return JSON.parse(addSchemaTypesFromExamples(serializedSchema, 'json'))
+          return JSON.parse(document)
 
         case 'yaml':
-          return yaml.load(addSchemaTypesFromExamples(serializedSchema, 'yaml'))
+          return yaml.load(document)
 
         default:
           throw new Error(`Format '${format}' is not supported!`)
@@ -35,6 +36,21 @@ for (const format in formats) {
 
     beforeEach(async () => {
       document = await createDocument()
+    })
+
+    it('should match the snapshot', () => {
+      let serializedDocument = null;
+      switch (format) {
+        case 'json':
+          serializedDocument = JSON.stringify(document);
+          break;
+        
+        case 'yaml':
+          serializedDocument = yaml.dump(document);
+          break;
+      } 
+
+      expect(serializedDocument).toMatchSnapshot();
     })
 
     it('should add schemas to the component scope', () => {
