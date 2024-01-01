@@ -9,13 +9,13 @@ The schema types are generated for all endpoints that examples for the content t
 Using `npm`:
 
 ```bash
-npm i openapi-examples-to-schema
+npm i openapi-schema-types-from-examples
 ```
 
 Using `yarn`:
 
 ```bash
-yarn add openapi-examples-to-schema
+yarn add openapi-schema-types-from-examples
 ```
 
 ## Quick Usage
