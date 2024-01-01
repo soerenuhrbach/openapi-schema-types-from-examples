@@ -4,8 +4,8 @@ const fs = require('fs/promises')
 const path = require('path')
 
 const formats = {
-  json: path.join('/fixtures/schema.json'),
-  yaml: path.join('/fixtures/schema.yaml')
+  json: path.join(__dirname, '/fixtures/schema.json'),
+  yaml: path.join(__dirname, '/fixtures/schema.yaml')
 }
 
 for (const format in formats) {
