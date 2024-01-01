@@ -1,0 +1,1 @@
+export default function addSchemaTypesFromExamples(openapiSpecification: string, format?: 'json' | 'yaml') : string

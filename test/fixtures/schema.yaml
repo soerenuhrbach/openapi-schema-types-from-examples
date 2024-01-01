@@ -1,0 +1,108 @@
+openapi: 3.0.0
+info:
+  title: Sample
+  version: 1.0.0
+servers:
+  - url: http://{{base_url}}
+paths:
+  /api/profile:
+    get:
+      tags:
+        - default
+      summary: /api/profile
+      responses:
+        '200':
+          description: OK
+          headers:
+            Content-Type:
+              schema:
+                type: string
+                example: application/json
+          content:
+            application/json:
+              schema:
+                type: object
+              example:
+                firstName: Max
+                lastName: Mustermann
+                age: 54
+                skills:
+                  - name: javascript
+                    level: 5
+                address:
+                  street: Musterstreet
+                  zip: '12355'
+                  country: Germany
+        '404':
+          description: Not Found
+          headers:
+            Content-Type:
+              schema:
+                type: string
+                example: application/json
+          content:
+            application/json:
+              schema:
+                type: object
+              example:
+                error:
+                  code: 404
+                  message: Not found
+    post:
+      tags:
+        - default
+      summary: /api/profile
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              example:
+                firstName: Max
+                lastName: Mustermann
+                age: 54
+                skills:
+                  - name: javascript
+                    level: 5
+                address:
+                  street: Musterstreet
+                  zip: '12355'
+                  country: Germany
+      responses:
+        '200':
+          description: OK
+          headers:
+            Content-Type:
+              schema:
+                type: string
+                example: application/json
+          content:
+            application/json:
+              schema:
+                type: object
+              example:
+                firstName: Max
+                lastName: Mustermann
+                age: 54
+                skills:
+                  - name: javascript
+                    level: 5
+                address:
+                  street: Musterstreet
+                  zip: '12355'
+                  country: Germany
+        '404':
+          description: Not Found
+          headers:
+            Content-Type:
+              schema:
+                type: string
+                example: application/json
+          content:
+            application/json:
+              schema:
+                type: object
+              example:
+                error:
+                  code: 404
+                  message: Not found
