@@ -1,6 +1,6 @@
 {
   "name": "openapi-schema-types-from-examples",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "Generate schema types of request bodies and responses based on given examples for openapi files",
   "main": "lib/index.js",
   "types": "types/index.d.ts",
